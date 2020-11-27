@@ -6,7 +6,14 @@
 {% endblock %}
 
 {% block content %}
+    <table class="table">
+    {% for foo in group.other_votes %}
+    <tr>
+    <td>{{ foo }}</td>
+    </tr>
+    {% endfor %}
 
+    </table>
     {% next_button %}
 {% endblock %}
 

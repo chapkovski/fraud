@@ -8,11 +8,13 @@ from otree.api import (
     Currency as c,
     currency_range,
 )
+from .fields import JsonField
+import random
 
-author = 'Your name here'
+author = 'Philipp Chapkovski, Valeria Maggian'
 
 doc = """
-Your app description
+Experiment on Electoral fraud
 """
 
 
@@ -27,12 +29,16 @@ class Constants(BaseConstants):
     fraud_cost = 1
     win_voter_payoff = 10
     win_candidate_payoff = 10
+    parties = ['Red', 'Blue']
 
 
-class Subsession(BaseSubsession):
+class SingleMixin:
     @property
     def single(self):
         return self.session.config.get('single_player')
+
+
+class Subsession(SingleMixin, BaseSubsession):
 
     # TODO: villeicht move these properties to db fields.
     @property
@@ -48,7 +54,24 @@ class Subsession(BaseSubsession):
             return waiting_players[0]
 
 
-class Group(BaseGroup):
+class Group(SingleMixin, BaseGroup):
+    # TODO: these are actulaly  not needed, but for fast developemnt may work
+    red_fraud = models.BooleanField()
+    blue_fraud = models.BooleanField()
+    red_revealing = models.BooleanField()
+    blue_revealing = models.BooleanField()
+    # TODO: again this is for single player mode only. Maybe there is more smart way of dealing with this,
+    # have no time to think about it at the moment
+    other_votes = JsonField()
+
+    def get_fraud(self, party):
+        if self.single:
+            return getattr(self, f'{party}_fraud')
+
+    def get_fraud_info(self, party):
+        if self.single:
+            return getattr(self, f'{party}_revealing')
+
     def after_fraud(self):
         print('AFTER FRAUD')
 
@@ -56,10 +79,15 @@ class Group(BaseGroup):
         print('AFTER FRAUD REVEALING')
 
     def after_voting(self):
-        print('AFTER VOTING')
+        self.other_votes = random.choices([False, True], k=Constants.num_voters - 1)
 
 
-class Player(BasePlayer):
+class Player(SingleMixin, BasePlayer):
+    fraud = models.BooleanField()
+    revealing = models.BooleanField()
+    vote = models.BooleanField()
+    party = models.StringField(choices=Constants.parties)
+
     def role(self):
-        if self.subsession.single:
+        if self.single:
             return self.session.config.get('role')
