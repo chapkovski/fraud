@@ -2,12 +2,30 @@ from os import environ
 
 SESSION_CONFIGS = [
     dict(
+        name='baseline_single_voter',
+        display_name="Baseline (single player) - Voter",
+        num_demo_participants=1,
+        app_sequence=['fraud'],
+        single_player=True,
+        role='voter'
+    ),
+    dict(
+        name='baseline_single_candidate',
+        display_name="Baseline (single player) - Candidate",
+        num_demo_participants=1,
+        app_sequence=['fraud'],
+        single_player=True,
+        role='candidate'
+    ),
+    dict(
         name='fraud_single_voter',
         display_name="Fraud (single player) - Voter",
         num_demo_participants=1,
         app_sequence=['fraud'],
         single_player=True,
-        role='voter'
+        role='voter',
+        fraud=True,
+        info=False
     ),
     dict(
         name='fraud_single_candidate',
@@ -15,7 +33,29 @@ SESSION_CONFIGS = [
         num_demo_participants=1,
         app_sequence=['fraud'],
         single_player=True,
-        role='candidate'
+        role='candidate',
+        fraud=True,
+        info=False
+    ),
+    dict(
+        name='fraud_info_single_voter',
+        display_name="Fraud+INFO (single player) - Voter",
+        num_demo_participants=1,
+        app_sequence=['fraud'],
+        single_player=True,
+        role='voter',
+        fraud=True,
+        info=True
+    ),
+    dict(
+        name='fraud_info_single_candidate',
+        display_name="Fraud+INFO (single player) - Candidate",
+        num_demo_participants=1,
+        app_sequence=['fraud'],
+        single_player=True,
+        role='candidate',
+        fraud=True,
+        info=True
     ),
 ]
 

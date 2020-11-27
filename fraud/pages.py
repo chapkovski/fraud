@@ -8,23 +8,27 @@ class FirstWP(WaitPage):
 
 
 class Fraud(Page):
-    pass
+    def is_displayed(self):
+        return self.player.role() == 'candidate' and self.subsession.fraud
 
 
 class AfterFraudWP(WaitPage):
-    pass
+    after_all_players_arrive = 'after_fraud'
 
 
 class FraudRevealing(Page):
-    pass
+
+    def is_displayed(self):
+        return self.player.role() == 'candidate' and self.subsession.info
 
 
 class AfterFraudRevealingWP(WaitPage):
-    pass
+    after_all_players_arrive = 'after_fraud_revealing'
 
 
 class Voting(Page):
-    pass
+    def is_displayed(self):
+        return self.player.role() == 'voter'
 
 
 class ResultsWaitPage(WaitPage):
