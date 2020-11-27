@@ -1,0 +1,20 @@
+<div class="card mb-3">
+    <div class="card-header">
+        What is fraud?
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+        Candidates from each party can 'commit a fraud'</li>
+        <li class="list-group-item">
+        If a candidate from a party decides to commit a fraud, then one vote for his/her party will be added, and
+            one vote for the opposite party will be taken away.
+        </li>
+        {% if subsession.info %}
+
+        <li class="list-group-item">Candidates can observe decisions regarding fraud of each other</li>
+        <li class="list-group-item">They can inform voters  whether a candidate of another  is planning
+        to commit a fraud.</li>
+        <li class="list-group-item font-weight-bold">It may or may not correspond to the real decision of another candidate.</li>
+        {% endif %}
+    </ul>
+</div>

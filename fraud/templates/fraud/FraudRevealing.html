@@ -2,11 +2,22 @@
 {% load otree static %}
 
 {% block title %}
-   Fraud revealing decision by Candidate
+   Fraud revealing decision by Candidate. Period {{ view.round_number }} of {{ Constants.num_rounds }}
 {% endblock %}
 
 {% block content %}
+        {% include 'fraud/includes/fraud.html' %}
+    {% if other_candidate_decision %}
+    <div class="alert alert-danger  text-center lead">
+       Decision of another candidate: <span class="badge badge-danger display-4"> {{ other_candidate_decision|yesno:'Commit a fraud,Do not commit a fraud' }}</span>
+    </div>
+    {% else %}
+    <div class="alert alert-success  text-center lead">
+       Decision of another candidate: <span class="badge badge-success display-4"> {{ other_candidate_decision|yesno:'Commit a fraud,Do not commit a fraud' }}</span>
+    </div>
+    {% endif %}
 
+    {% formfields %}
     {% next_button %}
 
 {% endblock %}

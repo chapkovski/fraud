@@ -2,11 +2,55 @@
 {% load otree static %}
 
 {% block title %}
-   Voting (by voter only)
+    Voting. Period {{ view.round_number }} of {{ Constants.num_rounds }}
 {% endblock %}
 
 {% block content %}
+    <div class="alert alert-warninng text-center lead">
+        In this period you belongs to the party: <span class="badge
+                {% if player.party == 'Blue' %}
+badge-primary
+{% else %}
+badge-danger
+{% endif %}
+">{{ player.party }}</span>
+    </div>
+    {% if subsession.info %}
+        {% include 'fraud/includes/fraud.html' %}
+        {% if group.red_revealing or group.blue_revealing %}
+            <ul class="list-group">
+                {% if group.red_revealing %}
+                    <li class="list-group-item">Candidate 'RED' informs you: <span
+                            class="badge"> {{ group.get_red_decision }}</span></li>
+                {% endif %}
+                {% if  group.blue_revealing %}
+                    <li class="list-group-item">Candidate 'BLUE' informs you: <span
+                            class="badge"> {{ group.get_blue_decision }}</span></li>
+                {% endif %}
+            </ul>
+        {% else %}
 
+            <div class="alert alert-info text-center lead">
+                Both candidates provided no information regarding the fraud decisions of an opposite party
+            </div>
+
+        {% endif %}
+    {% endif %}
+    <div class="alert alert-info text-center lead">
+        <ul class="list-group">
+
+            <li class="list-group-item">
+                If you choose to vote, that will cost you: {{ Constants.vote_cost|c }}
+            </li>
+            <li class="list-group-item">
+                If your party win, your payoff will be increased by {{ Constants.win_voter_payoff|c }}
+            </li>
+            <li class="list-group-item">
+                If your party loses, your payoff will remain unchanged.
+            </li>
+        </ul>
+    </div>
+    {% formfields %}
     {% next_button %}
 
 {% endblock %}

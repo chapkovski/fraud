@@ -2,16 +2,63 @@
 {% load otree static %}
 
 {% block title %}
-   Results
+    Results. Period {{ view.round_number }} of {{ Constants.num_rounds }}
 {% endblock %}
 
 {% block content %}
+    <div class="alert border text-center lead">
+        In case of a tie (same number of votes for both parties) the winner is chosen randomly
+    </div>
+     <div class="alert alert-warninng text-center lead">
+        In this period you belongs to the party: <span class="badge
+                {% if player.party == 'Blue' %}
+badge-primary
+{% else %}
+badge-danger
+{% endif %}
+">{{ player.party }}</span>
+    </div>
     <table class="table">
-    {% for foo in group.other_votes %}
-    <tr>
-    <td>{{ foo }}</td>
-    </tr>
-    {% endfor %}
+        <tr>
+            <td>Number of votes for party 'RED'</td>
+            <td>{{ group.num_reds }}</td>
+        </tr>
+        <tr>
+            <td>Number of votes for party 'BLUE'</td>
+            <td>{{ group.num_blues }}</td>
+        </tr>
+
+        <tr class="">
+            <td>Winner</td>
+            <td>{{ group.winner }}</td>
+        </tr>
+            {% if group.winner == player.party %}
+        <tr class="table-success">
+            <td colspan="2" class="text-center font-weight-bold">
+            Your party won!
+
+            </td>
+        </tr>
+{% else %}
+
+        <tr class="table-danger">
+            <td colspan="2" class="text-center font-weight-bold">
+            Your party lost!
+
+            </td>
+        </tr>
+            {% endif %}
+    {% if player.vote %}
+
+        <tr class=" ">
+            <th>Your cost of voting in this period</th>
+            <th>- {{ Constants.vote_cost|c }}</th>
+        </tr>
+    {% endif %}
+        <tr class="table-info">
+            <th>Your payoff in this period</th>
+            <th>{{ player.payoff }}</th>
+        </tr>
 
     </table>
     {% next_button %}

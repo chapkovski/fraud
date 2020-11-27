@@ -2,11 +2,26 @@
 {% load otree static %}
 
 {% block title %}
-    Fraud decision (by Candidate)
+    Fraud decision (by Candidate). Period {{ view.round_number }} of {{ Constants.num_rounds }}
 {% endblock %}
 
 {% block content %}
+            {% include 'fraud/includes/fraud.html' %}
+        <div class="alert alert-info text-center lead">
+        <ul class="list-group">
 
+            <li class="list-group-item">
+                If you choose to commit a fraud, that will cost you: {{ Constants.fraud_cost|c }}
+            </li>
+            <li class="list-group-item">
+                If your party win, your payoff will be increased by {{ Constants.win_candidate_payoff|c }}
+            </li>
+            <li class="list-group-item">
+                If your party loses, your payoff will remain unchanged
+            </li>
+        </ul>
+    </div>
+    {% formfields %}
     {% next_button %}
 
 {% endblock %}
