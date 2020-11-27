@@ -24,12 +24,20 @@ class Constants(BaseConstants):
 
 
 class Subsession(BaseSubsession):
-    pass
+    def group_by_arrival_time_method(self, waiting_players):
+        if self.session.config.get('single_player'):
+            return waiting_players[0]
+
 
 
 class Group(BaseGroup):
-    pass
+    def after_voting(self):
+        print('MY GROUP JUST CHECK', self.get_players())
+
 
 
 class Player(BasePlayer):
-    pass
+    def role(self):
+        if self.session.config.get('single_player'):
+            return self.session.config.get('role')
+

@@ -39,6 +39,11 @@ In fraud candidates can flip one opposite vote to their vote (if there are any v
 
 In _fraud + info_  they can inform voters that the opposite candidate is going to commit a fraud after observing an opposite candidate decision. They can lie.
 
+#### Game stages:
+
+1. (All but baseline): Candidates take the decision on whether to commit a fraud. Voters wait
+2. (Fraud + info): 
+
 ---
 #### Code specification
 

@@ -3,16 +3,44 @@ from ._builtin import Page, WaitPage
 from .models import Constants
 
 
-class MyPage(Page):
+class FirstWP(WaitPage):
+    group_by_arrival_time = 'true'
+
+
+class Fraud(Page):
+    pass
+
+
+class AfterFraudWP(WaitPage):
+    pass
+
+
+class FraudRevealing(Page):
+    pass
+
+
+class AfterFraudRevealingWP(WaitPage):
+    pass
+
+
+class Voting(Page):
     pass
 
 
 class ResultsWaitPage(WaitPage):
-    pass
+    after_all_players_arrive = 'after_voting'
 
 
 class Results(Page):
     pass
 
 
-page_sequence = [MyPage, ResultsWaitPage, Results]
+page_sequence = [
+    Fraud,
+    AfterFraudWP,
+    FraudRevealing,
+    AfterFraudRevealingWP,
+    Voting,
+    ResultsWaitPage,
+    Results
+]
