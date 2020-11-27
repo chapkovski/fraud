@@ -164,12 +164,12 @@ class Group(SingleMixin, BaseGroup):
                 if p.role() == 'voter':
                     p.payoff = Constants.win_voter_payoff - Constants.vote_cost * p.vote
                 else:
-                    p.payoff = Constants.win_candidate_payoff - Constants.fraud_cost * p.fraud
+                    p.payoff = Constants.win_candidate_payoff - Constants.fraud_cost * (p.fraud or 0)
             else:
                 if p.role() == 'voter':
                     p.payoff = - Constants.vote_cost * p.vote
                 else:
-                    p.payoff = - Constants.fraud_cost * p.fraud
+                    p.payoff = - Constants.fraud_cost * (p.fraud or 0)
 
 
 class Player(SingleMixin, BasePlayer):

@@ -6,11 +6,14 @@
 {% endblock %}
 
 {% block content %}
-    <div class="alert border text-center lead">
-        In case of a tie (same number of votes for both parties) the winner is chosen randomly
-    </div>
-     <div class="alert alert-warninng text-center lead">
-        In this period you belongs to the party: <span class="badge
+    {% include 'fraud/includes/role_block.html' %}
+    <div class="alert alert-warninng text-center lead">
+        {% if player.role == 'voter' %}
+            In this period you
+        {% else %}
+            You
+        {% endif %}
+        belongs to the party: <span class="badge
                 {% if player.party == 'Blue' %}
 badge-primary
 {% else %}
@@ -18,6 +21,10 @@ badge-danger
 {% endif %}
 ">{{ player.party }}</span>
     </div>
+    <div class="alert border text-center lead">
+        In case of a tie (same number of votes for both parties) the winner is chosen randomly
+    </div>
+
     <table class="table">
         <tr>
             <td>Number of votes for party 'RED'</td>
@@ -32,29 +39,36 @@ badge-danger
             <td>Winner</td>
             <td>{{ group.winner }}</td>
         </tr>
-            {% if group.winner == player.party %}
-        <tr class="table-success">
-            <td colspan="2" class="text-center font-weight-bold">
-            Your party won!
+        {% if group.winner == player.party %}
+            <tr class="table-success">
+                <td colspan="2" class="text-center font-weight-bold">
+                    Your party won!
 
-            </td>
-        </tr>
-{% else %}
+                </td>
+            </tr>
+        {% else %}
 
-        <tr class="table-danger">
-            <td colspan="2" class="text-center font-weight-bold">
-            Your party lost!
+            <tr class="table-danger">
+                <td colspan="2" class="text-center font-weight-bold">
+                    Your party lost!
 
-            </td>
-        </tr>
-            {% endif %}
-    {% if player.vote %}
+                </td>
+            </tr>
+        {% endif %}
+        {% if player.vote %}
 
-        <tr class=" ">
-            <th>Your cost of voting in this period</th>
-            <th>- {{ Constants.vote_cost|c }}</th>
-        </tr>
-    {% endif %}
+            <tr class=" ">
+                <th>Your cost of voting in this period</th>
+                <th>- {{ Constants.vote_cost|c }}</th>
+            </tr>
+        {% endif %}
+        {% if player.fraud and player.role == 'candidate' %}
+
+            <tr class=" ">
+                <th>Your cost of commiting the fraud in this period</th>
+                <th>- {{ Constants.fraud_cost|c }}</th>
+            </tr>
+        {% endif %}
         <tr class="table-info">
             <th>Your payoff in this period</th>
             <th>{{ player.payoff }}</th>

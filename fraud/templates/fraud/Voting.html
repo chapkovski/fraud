@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block content %}
+      {% include 'fraud/includes/role_block.html' %}
     <div class="alert alert-warninng text-center lead">
         In this period you belongs to the party: <span class="badge
                 {% if player.party == 'Blue' %}
@@ -16,7 +17,7 @@ badge-danger
 ">{{ player.party }}</span>
     </div>
     {% if subsession.info %}
-        {% include 'fraud/includes/fraud.html' %}
+        {% include 'fraud/includes/fraud_block.html' %}
         {% if group.red_revealing or group.blue_revealing %}
             <ul class="list-group">
                 {% if group.red_revealing %}

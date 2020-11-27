@@ -6,7 +6,8 @@
 {% endblock %}
 
 {% block content %}
-        {% include 'fraud/includes/fraud.html' %}
+    {% include 'fraud/includes/role_block.html' %}
+        {% include 'fraud/includes/fraud_block.html' %}
     {% if other_candidate_decision %}
     <div class="alert alert-danger  text-center lead">
        Decision of another candidate: <span class="badge badge-danger display-4"> {{ other_candidate_decision|yesno:'Commit a fraud,Do not commit a fraud' }}</span>
