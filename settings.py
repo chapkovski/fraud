@@ -1,12 +1,22 @@
 from os import environ
 
 SESSION_CONFIGS = [
-    # dict(
-    #    name='public_goods',
-    #    display_name="Public Goods",
-    #    num_demo_participants=3,
-    #    app_sequence=['public_goods', 'payment_info']
-    # ),
+    dict(
+        name='fraud_single_voter',
+        display_name="Fraud (single player) - Voter",
+        num_demo_participants=1,
+        app_sequence=['fraud'],
+        single_player=True,
+        role='voter'
+    ),
+    dict(
+        name='fraud_single_candidate',
+        display_name="Fraud (single player) - Candidate",
+        num_demo_participants=1,
+        app_sequence=['fraud'],
+        single_player=True,
+        role='candidate'
+    ),
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs

@@ -42,9 +42,9 @@ In _fraud + info_  they can inform voters that the opposite candidate is going t
 ---
 #### Code specification
 
-- Ability to play 'one-player' game for the demo purposes plus for training purposes. In one-player the role of other 
+- Ability to play 'single_player' game for the demo purposes plus for training purposes. In single_player the role of other 
 6 players are performed by bots.
-    - in one-player the role is not assigned randomly but based on `session.config` param `role`
-    - to play it `one_player` `config.session` setting should be set to `true`
-    - *TODO*: play `x` training rounds with one-player settings, plus one with real partners.
+    - in single_playerthe role is not assigned randomly but based on `session.config` param `role`
+    - to play it `single_player` `config.session` setting should be set to `true`
+    - *TODO*: play `x` training rounds with single_player settings, plus one with real partners.
       
